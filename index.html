@@ -1,25 +1,708 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo — Preparing</title>
-    <style>
-      html, body { height: 100%; margin: 0; }
-      body {
-        display: flex; align-items: center; justify-content: center;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background: #0f1115; color: #e6e6e6;
-      }
-      .box { text-align: center; padding: 2rem; }
-      h1 { font-weight: 600; font-size: 2rem; margin: 0 0 .5rem; letter-spacing: .02em; }
-      p { color: #9aa0a6; margin: 0; font-size: 1rem; }
-    </style>
-  </head>
-  <body>
-    <div class="box">
-      <h1>Preparing…</h1>
-      <p>This page is under construction.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Long Listening Thoughts — Demo Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-soft: #f7f8fa;
+      --bg-code: #f4f4f6;
+      --fg: #1a1a1f;
+      --fg-soft: #4a4a55;
+      --muted: #8a8a96;
+      --border: #e4e4ea;
+      --accent: #4f6bed;
+      --accent-soft: #eef1ff;
+      --correct: #16a34a;
+      --correct-soft: #ecfdf3;
+      --wrong: #dc2626;
+      --wrong-soft: #fef2f2;
+      --trigger-bg: #fff4cc;
+      --radius: 10px;
+      --maxw: 980px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--fg);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+    section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+    section:last-of-type { border-bottom: none; }
+
+    h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.01em; color: var(--fg); }
+    h1 { font-size: 2.6rem; line-height: 1.15; margin: 0; letter-spacing: -0.025em; }
+    h2 { font-size: 1.6rem; margin: 0 0 .4rem; }
+    h3 { font-size: 1.05rem; margin: 0 0 8px; color: var(--fg); letter-spacing: -0.005em; }
+    h4 { font-size: .95rem; margin: 0; color: var(--fg-soft); }
+    p  { margin: 0 0 .9rem; color: var(--fg-soft); }
+    a  { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Hero — full title (with subtitle joined by colon) */
+    .hero { text-align: center; padding: 88px 0 68px; border-bottom: 1px solid var(--border); }
+    .hero h1 { font-size: 2.1rem; line-height: 1.25; max-width: 860px; margin: 0 auto; }
+
+    .section-desc { color: var(--fg-soft); margin: -.2rem 0 1.8rem; max-width: 760px; }
+
+    /* Method bullets */
+    .method-list { list-style: none; padding: 0; margin: 0; counter-reset: stage; }
+    .method-list li {
+      counter-increment: stage;
+      position: relative;
+      padding: 12px 12px 12px 50px;
+      margin-bottom: 8px;
+      background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius);
+    }
+    .method-list li::before {
+      content: counter(stage);
+      position: absolute; left: 14px; top: 12px;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--accent); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 600;
+    }
+    .method-list li b { color: var(--fg); }
+    .method-list li code {
+      font-family: 'JetBrains Mono', monospace; font-size: .82rem;
+      background: var(--bg-code); padding: 1px 5px; border-radius: 3px;
+      color: var(--fg);
+    }
+
+    /* Example card */
+    .example-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 22px;
+    }
+    .example-card .meta {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .78rem; color: var(--muted);
+      background: var(--bg-soft); border: 1px solid var(--border);
+      padding: 3px 10px; border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .example-card .behavior-chip {
+      display: inline-block; margin-left: 6px;
+      font-size: .75rem; font-weight: 600;
+      color: var(--accent); background: var(--accent-soft);
+      padding: 3px 10px; border-radius: 999px;
+      letter-spacing: .01em;
+    }
+    .example-card .tag-row {
+      display: block; color: var(--muted); font-size: .82rem;
+      margin: 4px 0 14px;
+    }
+    .example-card .tag-row span + span::before { content: " · "; color: var(--border); margin: 0 4px; }
+    .example-card .open-ended-tag {
+      display: inline-block; margin-left: 6px;
+      font-size: .72rem; font-weight: 500;
+      color: var(--fg-soft); background: var(--bg-soft);
+      padding: 2px 8px; border-radius: 999px;
+    }
+    .free-form-ans {
+      background: var(--correct-soft); border: 1px solid #b6e7c4;
+      border-radius: 6px; padding: 8px 12px;
+      font-size: .9rem; color: var(--fg); margin: 0 0 14px;
+    }
+    .free-form-ans .label { color: var(--correct); font-weight: 600; font-size: .75rem;
+      text-transform: uppercase; letter-spacing: .04em; margin-right: 6px; }
+    .example-card audio { width: 100%; margin: 6px 0 18px; height: 36px; }
+
+    /* Sub-card for original / challenging within a dataset example */
+    .subcard {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-top: 14px;
+      background: var(--bg);
+    }
+    .subcard + .subcard { margin-top: 14px; }
+    .subcard-label {
+      display: inline-block;
+      font-size: .72rem; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--accent); background: var(--accent-soft);
+      padding: 3px 10px; border-radius: 999px; font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .subcard-label.alt { color: var(--fg-soft); background: var(--bg-soft); }
+
+    .q-label { font-size: .78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; font-weight: 500; margin: 8px 0 4px; }
+    .question { font-weight: 500; margin: 0 0 10px; color: var(--fg); }
+
+    .choices { list-style: none; padding: 0; margin: 0 0 14px; }
+    .choices li {
+      padding: 7px 12px; border: 1px solid var(--border); border-radius: 6px;
+      margin-bottom: 6px; font-size: .94rem; color: var(--fg-soft);
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    }
+    .choices li.correct { background: var(--correct-soft); border-color: #b6e7c4; color: var(--fg); font-weight: 500; }
+    .choices li .check { color: var(--correct); font-weight: 700; }
+
+    /* Tabs */
+    .tabs { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0 0; border-bottom: 1px solid var(--border); padding-bottom: 0; }
+    .tab-btn {
+      background: transparent; border: none; cursor: pointer;
+      padding: 8px 12px; font: inherit; font-size: .88rem; color: var(--muted);
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      font-weight: 500; transition: color .15s;
+    }
+    .tab-btn:hover { color: var(--fg); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-btn .sub { color: var(--muted); font-weight: 400; margin-left: 6px; font-size: .8rem; }
+    .tab-btn.active .sub { color: var(--accent); opacity: .8; }
+    .tab-panels { padding: 14px 0 4px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Reasoning block */
+    .reasoning {
+      background: var(--bg-code);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .85rem; line-height: 1.65;
+      color: var(--fg);
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .reasoning b, .reasoning strong { color: var(--fg); font-weight: 600; }
+    /* Highlight only inside the "ours" (LLT) qualitative response */
+    .reasoning.ours b, .reasoning.ours strong {
+      background: linear-gradient(transparent 55%, #ffe78f 55%);
+      padding: 0 1px; font-weight: 600; color: var(--fg);
+    }
+    .trigger {
+      background: var(--trigger-bg);
+      padding: 2px 6px; border-radius: 4px;
+      font-weight: 600;
+      border: 1px solid #f0d878;
+    }
+    .think-tag, .answer-tag { color: var(--muted); font-size: .8rem; }
+    .answer-text { color: var(--accent); font-weight: 600; }
+
+    /* Comparison grid for qualitative */
+    .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px; }
+    .model-resp {
+      border: 1px solid var(--border); border-radius: 8px; padding: 14px;
+      background: var(--bg);
+    }
+    .model-resp.wrong  { border-top: 3px solid var(--wrong); }
+    .model-resp.correct { border-top: 3px solid var(--correct); }
+    .model-resp .model-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+    .model-resp .model-name { font-weight: 600; font-size: .92rem; color: var(--fg); }
+    .pred-chip {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 9px; border-radius: 999px; font-size: .78rem; font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .pred-chip.wrong   { background: var(--wrong-soft); color: var(--wrong); }
+    .pred-chip.correct { background: var(--correct-soft); color: var(--correct); }
+
+    /* Show-more */
+    .collapsible {
+      max-height: 280px; overflow: hidden; position: relative;
+      transition: max-height .25s ease;
+    }
+    .collapsible.expanded { max-height: none; }
+    .collapsible:not(.expanded)::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 50px;
+      background: linear-gradient(to bottom, transparent, var(--bg-code));
+      pointer-events: none;
+    }
+    .show-more-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--accent); font: inherit; font-size: .85rem; font-weight: 500;
+      margin-top: 6px; padding: 4px 0;
+    }
+    .show-more-btn:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      h1 { font-size: 1.95rem; }
+      .comparison { grid-template-columns: 1fr; }
+      section { padding: 44px 0; }
+      .hero { padding: 72px 0 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO — full paper title -->
+  <header class="hero">
+    <div class="wrap">
+      <h1>Long Listening Thoughts: Eliciting Open Auditory Reasoning with Deliberative Perception and Cognitive Refinement</h1>
     </div>
-  </body>
-  </html>
+  </header>
+
+  <!-- ABSTRACT -->
+  <section id="abstract">
+    <div class="wrap">
+      <h2>Abstract</h2>
+      <p>We introduce <b>Long Listening Thoughts (LLT)</b>, a framework for constructing post-training datasets that improves audio reasoning by pairing deliberate perceptual grounding with explicit cognitive behaviors.</p>
+      <p>On audio understanding and reasoning benchmarks, large audio–language models (LALMs) are limited primarily by perceptual errors, yet existing post-training datasets rely on audio descriptions of limited diversity. Through a four-stage pipeline, LLT (1) builds multi-aspect dense audio descriptions spanning semantic, acoustic, and temporal information, (2) generates more challenging questions, (3) synthesizes incorrect reasoning traces, and (4) extends short reasoning traces into long ones via a <i>thought-continuation</i> strategy that elicits cognitive behaviors such as verification and backtracking.</p>
+      <p>Using LLT, we synthesize 1.6M reasoning traces and train Qwen2.5-Omni-7B with a two-stage pipeline of supervised fine-tuning (SFT) followed by direct preference optimization (DPO). This improves accuracy on MMAU Test-mini (71.5 → 78.2), MMAR (56.7 → 63.7), and MMSU (60.6 → 66.0).</p>
+    </div>
+  </section>
+
+  <!-- METHOD -->
+  <section id="method">
+    <div class="wrap">
+      <h2>Method Overview</h2>
+      <p class="section-desc">A four-stage pipeline that synthesizes 1.6M long reasoning traces from an existing short audio CoT dataset.</p>
+      <ol class="method-list">
+        <li><b>Deliberating multi-aspect dense audio description.</b> Build multi-aspect descriptions spanning <i>semantic</i>, <i>acoustic</i>, and <i>temporal</i> information, strengthening perceptual grounding.</li>
+        <li><b>Refining challenging questions.</b> Augment harder questions that demand non-trivial reasoning grounded in the richer perceptual evidence.</li>
+        <li><b>Generating incorrect reasoning traces.</b> Synthesize plausible-but-incorrect short traces that provide a corrective signal for reflection and correction.</li>
+        <li><b>Thought continuation.</b> Continue short reasoning traces into long traces with explicit cognitive behaviors by asking the reasoning model to deliberate inside its own <code>&lt;think&gt;</code> block and emit the <i>refined</i> continuation in the <code>&lt;answer&gt;</code> block.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- DATASET EXAMPLES -->
+  <section id="dataset-examples">
+    <div class="wrap">
+      <h2>Dataset Examples</h2>
+      <p class="section-desc">For each source example, LLT incorporates multiple reasoning trace types: short correct <b>r⁺</b>, correct-to-refine <b>r⁺ → r⁺⁺</b>, and incorrect-to-correct <b>r⁻ → r⁺⁺</b>. Stage 2 additionally produces a harder <i>challenging question</i> on the same audio.</p>
+      <div id="dataset-examples-container"></div>
+    </div>
+  </section>
+
+  <!-- QUALITATIVE EXAMPLES -->
+  <section id="qualitative-examples">
+    <div class="wrap">
+      <h2>Qualitative Examples</h2>
+      <p class="section-desc">Comparing <b>Qwen2.5-Omni-7B + AF-Think</b> (baseline) and <b>Qwen2.5-Omni-7B + LLT (SFT → DPO)</b> (ours).</p>
+      <div id="qualitative-examples-container"></div>
+    </div>
+  </section>
+
+  <!-- DATA + RENDER -->
+  <script type="application/json" id="page-data">{
+  "qualitative": [
+    {
+      "bench": "MMAR",
+      "id": "BV1cxAueZE5J_00-01-45_00-01-55",
+      "audio": "audio/MMAR_BV1cxAueZE5J_00-01-45_00-01-55.wav",
+      "behavior_type": "Explicit error-correction",
+      "tags": [
+        "sound",
+        "trigger: Let me listen more carefully",
+        "LLT A→B",
+        "backtracking = 1"
+      ],
+      "question": "What is this ride in the amusement park",
+      "choices": [
+        "Log Flume",
+        "Roller Coaster",
+        "Pirate Ship",
+        "Ferris Wheel"
+      ],
+      "answer": "Roller Coaster",
+      "af_think": {
+        "prediction": "Log Flume",
+        "response": "<think> The sounds of a motor starting, water splashing, and a scream suggest a ride involving water and speed. A roller coaster or ferris wheel is less likely to have water splashing sounds. A pirate ship is less likely to have a motor starting sound. Therefore, the most plausible answer is: (A) Log Flume. </think>\n\n<answer> (A) </answer>"
+      },
+      "llt": {
+        "prediction": "Roller Coaster",
+        "response": "<think> The presence of screams, water splashes, and a boat engine suggests a water-based ride. The fearful tone of the speaker further points towards a thrilling experience. Therefore, the most plausible option is: (A) Log Flume. Let me listen more carefully. The audio features a deep, resonant roar followed by a high-pitched scream, with metallic clanking and grinding sounds. The mechanical noises are consistent with a roller coaster's chain lift mechanism and track movement, not water-based elements. The absence of water splashes or boat engine sounds rules out a log flume. The sudden, intense scream and rapid mechanical transitions align with a roller coaster's drop or inversion, where riders experience sharp drops and high-speed motion. The reverberant, enclosed environment described matches a roller coaster tunnel or station, not a pirate ship or Ferris wheel. The initial assumption of water sounds was incorrect; the metallic and mechanical nature of the audio is definitive for a roller coaster. </think>\n\n<answer> (B) </answer>"
+      }
+    },
+    {
+      "bench": "MMAR",
+      "id": "qP0j_MRAjuo_00-00-10_00-00-25",
+      "audio": "audio/MMAR_qP0j_MRAjuo_00-00-10_00-00-25.wav",
+      "behavior_type": "Detail improvement",
+      "tags": [
+        "speech",
+        "trigger: Let me listen more carefully",
+        "LLT A→A (both correct)",
+        "pre/post: 82 / 693 chars (×8.5)"
+      ],
+      "question": "Did the speaker in the video use an Indian accent?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": "Yes",
+      "af_think": {
+        "prediction": "No",
+        "response": "<think> The audio indicates the speaker had a neutral accent. Therefore, the answer is: (B) No </think>\n\n<answer> (B) </answer>"
+      },
+      "llt": {
+        "prediction": "Yes",
+        "response": "<think> The speaker in the video used an Indian accent. Therefore, the answer is: (A) Yes. Let me listen more carefully. The speaker's voice has a distinct nasal quality and a noticeable upward inflection on words like \"okay\" and \"here,\" which are characteristic of Indian English accents. The pronunciation of \"hotel\" as \"ho-tel\" with a soft 't' sound and the use of \"front desk\" instead of \"front desk\" further align with common Indian English patterns. Additionally, the rhythmic cadence and intonation patterns match the typical delivery style of Indian English speakers, who often emphasize certain syllables and use specific vowel sounds that differ from standard American or British English. These features are consistent with an Indian accent, confirming the correct choice. </think>\n\n<answer> (A) </answer>"
+      }
+    }
+  ],
+  "dataset_examples": [
+    {
+      "id": "YouTube8M/-Btg5ygmBZA_52_10",
+      "audio": "audio/YouTube8M_-Btg5ygmBZA_52_10.mp3",
+      "original": {
+        "question": "What kind of setting is likely depicted in this audio?",
+        "choices": [
+          "A haunted house",
+          "A battlefield",
+          "A nightclub",
+          "A science fiction movie scene"
+        ],
+        "answer_idx": 3,
+        "variants": [
+          {
+            "key": "r_plus",
+            "label": "r⁺",
+            "sublabel": "Short correct trace",
+            "trigger": null,
+            "text": "Based on the presence of gunfire, explosions, and particularly the futuristic-sounding weapon effects, along with the combat context indicated by \"Out of ammo,\" the audio is most consistent with action in a non-contemporary setting. Therefore, the most likely depiction is: **(D) A science fiction movie scene**"
+          },
+          {
+            "key": "r_plus_plus",
+            "label": "r⁺ → r⁺⁺",
+            "sublabel": "Correct-to-refine",
+            "trigger": "Let me listen again.",
+            "text": "Based on the presence of gunfire, explosions, and particularly the futuristic-sounding weapon effects, along with the combat context indicated by \"Out of ammo,\" the audio is most consistent with action in a non-contemporary setting. Therefore, the most likely depiction is: **(D) A science fiction movie scene**. [TRIGGER] The audio features **a sequence of sharp metallic impacts followed by automatic gunfire with no ambient noise, suggesting a controlled environment rather than a real-world battlefield**. The woman's urgent shout of \"OUT OF AMMO!\" is clear and distorted, typical of a staged production. The abrupt ending with a synthetic low-frequency electronic tone—reminiscent of a system shutdown—points to a technological or futuristic context. **Real battlefields would include more environmental sounds, such as distant explosions, chatter, or varying gunfire, but this clip lacks such elements.** Instead, the sterile acoustics, precise sound design, and digital artifacts align with a cinematic or video game setting, particularly one with science fiction elements. The absence of natural background noise and the presence of a clearly artificial electronic signal further support this conclusion."
+          },
+          {
+            "key": "r_minus_to_plus_plus",
+            "label": "r⁻ → r⁺⁺",
+            "sublabel": "Incorrect-to-correct",
+            "trigger": "Hmm.",
+            "text": "The audio features intense gunfire, ejected shell casings, and a soldier shouting 'OUT OF AMMO!'—classic **battlefield indicators**. The industrial echo suggests a ruined urban zone or abandoned facility common in war zones. The lack of music or supernatural elements rules out a haunted house, and the gritty realism, not futuristic tech, aligns with modern combat. The distorted voice and mechanical sounds reflect **battlefield chaos,** not sci-fi stylization. [TRIGGER] However, the final low-frequency electronic tone, which resembles a system shutdown or digital error, is not characteristic of real-world combat but rather typical of science fiction settings where technology malfunctions or systems fail. This, combined with the stylized industrial environment and controlled sound design, suggests the scene is from a **science fiction context rather than a realistic battlefield.** The absence of natural ambient noise and the presence of synthetic, non-natural elements further support this interpretation."
+          }
+        ]
+      },
+      "challenging": {
+        "question": "What is the most likely narrative context of this audio, based on the sequence of sounds and vocal delivery?",
+        "choices": [
+          "A military training exercise gone wrong",
+          "A rogue AI system triggering a weapon lockdown",
+          "A soldier in a post-apocalyptic bunker under attack",
+          "A video game character experiencing a critical system failure during combat"
+        ],
+        "answer_idx": 3,
+        "variants": [
+          {
+            "key": "short",
+            "label": "r⁺",
+            "sublabel": "Short correct trace",
+            "trigger": null,
+            "text": "The audio features highly stylized gunfire with metallic casing ejections, a distorted female shout of 'OUT OF AMMO,' followed by abrupt mechanical clicks and a sustained synthetic tone—none of which suggest real-world military realism. The lack of ambient noise, digital clipping, and the final electronic tone point to a designed, artificial environment. The sequence mirrors video game audio design: exaggerated weapon feedback, scripted panic, and a system shutdown cue, not battlefield chaos or AI rebellion."
+          }
+        ]
+      }
+    },
+    {
+      "id": "YouTube8M/-leHk_wH3hc_267_10",
+      "audio": "audio/YouTube8M_-leHk_wH3hc_267_10.mp3",
+      "original": {
+        "question": "What kind of setting might this instrumental piece be most suitable for?",
+        "choices": [
+          "A relaxing spa",
+          "A quiet library",
+          "A bedtime lullaby",
+          "A high-energy sports event"
+        ],
+        "answer_idx": 3,
+        "variants": [
+          {
+            "key": "r_plus",
+            "label": "r⁺",
+            "sublabel": "Short correct trace",
+            "trigger": null,
+            "text": "Based on the fast tempo, intense instrumentation (likely distorted guitars, heavy drums), and overall high-energy, driving feel of the piece, it would be most suitable for: **(D) A high-energy sports event**"
+          },
+          {
+            "key": "r_plus_plus",
+            "label": "r⁺ → r⁺⁺",
+            "sublabel": "Correct-to-refine",
+            "trigger": "Let me listen again.",
+            "text": "Based on the fast tempo, intense instrumentation (likely distorted guitars, heavy drums), and overall high-energy, driving feel of the piece, it would be most suitable for: **(D) A high-energy sports event**. [TRIGGER] **The music is relentless, with rapid guitar solos, pounding double-kick drums, and a driving rhythm section that creates a sense of urgency and intensity.** There are no calming or soothing elements—only powerful, unrelenting energy. A relaxing spa would require soft, ambient sounds, a quiet library needs silence or gentle tones, and a bedtime lullaby must be slow and soothing. None of these match the aggressive, high-octane nature of the track. In contrast, **sports events often use such intense instrumental music to energize crowds during intense moments, like player entrances or highlight reels.** The abrupt cutoff and buzzer might even align with a timed competition or game show context, but the core music itself is unmistakably suited for high-energy environments where adrenaline and excitement are key."
+          },
+          {
+            "key": "r_minus_to_plus_plus",
+            "label": "r⁻ → r⁺⁺",
+            "sublabel": "Incorrect-to-correct",
+            "trigger": "Hmm.",
+            "text": "The piece features a **steady, pulsing rhythm and sustained high-pitched guitar tones that resemble soothing, repetitive melodies** often found in lullabies. Though intense at first, the consistent tempo and lack of sudden changes create a hypnotic, calming effect. The abrupt buzzer is likely a production artifact, not part of the music's intent. With no vocals or jarring elements, it's ideal for quiet, repetitive relaxation—perfect for **lulling someone to sleep.** [TRIGGER] However, upon closer listening, **the music is intensely energetic with rapid guitar solos and driving drums that create a sense of urgency and excitement.** There's no calming effect; instead, the relentless tempo and distorted guitars would be too stimulating for relaxation. The abrupt buzzer further suggests a competitive or timed scenario, making this piece ideal for a **high-energy sports event** where such intensity matches the atmosphere."
+          }
+        ]
+      },
+      "challenging": {
+        "question": "What is the most likely functional purpose of this audio clip, given its structure and abrupt ending?",
+        "choices": [
+          "A commercial jingle for a sports brand",
+          "A cinematic trailer score",
+          "An interactive game mechanic cue for incorrect responses",
+          "A radio station ID jingle"
+        ],
+        "answer_idx": 2,
+        "variants": [
+          {
+            "key": "short",
+            "label": "r⁺",
+            "sublabel": "Short correct trace",
+            "trigger": null,
+            "text": "The clip begins with **high-energy metal music**, suggesting intensity, but its abrupt cutoff mid-solo followed by a distinct, **synthetic buzzer—identical to game show wrong-answer signals—indicates a designed trigger event**. The lack of vocals, branding, or narrative build-up rules out commercial or cinematic use. The buzzer's dry, post-produced quality confirms it's a functional audio cue, not artistic expression. This structure is typical in interactive media to signal failure or time expiration."
+          }
+        ]
+      }
+    },
+    {
+      "id": "Clotho-v2/rainfall",
+      "audio": "audio/Clotho-v2_rainfall.flac",
+      "open_ended": true,
+      "original": {
+        "question": "What challenge is the speaker facing, and what solution is he proposing in the audio context?",
+        "choices": [],
+        "answer_idx": null,
+        "variants": [
+          {
+            "key": "r_plus",
+            "label": "r⁺",
+            "sublabel": "Short correct trace",
+            "trigger": null,
+            "text": "Based on the prominent sound of heavy rain in the audio, the speaker is likely encountering a signal or reception issue exacerbated by the weather. The speaker's subsequent action, suggesting to \"hold it down here,\" indicates they are attempting a physical adjustment or manipulation, perhaps of a device or antenna, in the hope that it will improve the situation, stating, \"maybe it'll get better.\" **Therefore, the challenge is poor reception due to rain, and the proposed solution is to physically hold something down.**"
+          },
+          {
+            "key": "r_plus_plus",
+            "label": "r⁺ → r⁺⁺",
+            "sublabel": "Correct-to-refine",
+            "trigger": "Let me listen again.",
+            "text": "Based on the prominent sound of heavy rain in the audio, the speaker is likely encountering a signal or reception issue exacerbated by the weather. The speaker's subsequent action, suggesting to \"hold it down here,\" indicates they are attempting a physical adjustment or manipulation, perhaps of a device or antenna, in the hope that it will improve the situation, stating, \"maybe it'll get better.\" **Therefore, the challenge is poor reception due to rain, and the proposed solution is to physically hold something down.** [TRIGGER] The speaker is dealing with heavy rain interfering with audio recording quality, as evidenced by the constant, loud rain sounds dominating the environment. **The phrase \"I'll hold it down here, maybe it'll pick up better\"** directly indicates an attempt to physically adjust a recording device—likely a microphone or audio capture tool—to mitigate the rain's impact. **The metallic clicks and thuds heard before and after the speech** align with the action of securing or repositioning the device, suggesting the rain is causing distortion or poor signal clarity. **By holding the device down, the speaker aims to stabilize it or shield it from direct rain exposure, thereby improving the audio's clarity and reducing interference.**"
+          },
+          {
+            "key": "r_minus_to_plus_plus",
+            "label": "r⁻ → r⁺⁺",
+            "sublabel": "Incorrect-to-correct",
+            "trigger": "Hmm.",
+            "text": "The speaker is struggling to be heard clearly over the persistent rain, as his voice is barely audible beneath the ambient noise. He says 'hold it down here,' which suggests he's trying to find a more sheltered spot away from the rain's interference. The metallic clicks and thuds indicate he's relocating his device, possibly to reduce wind or water noise. **He hopes moving will improve speech intelligibility, not fix signal reception.** [TRIGGER] The speaker is dealing with heavy rain interfering with the clarity of the audio recording. The persistent rain sounds dominate the environment, making it difficult for the microphone to capture clear audio. His statement, \"I'll hold it down here, maybe it'll pick up better,\" indicates he is adjusting the position of the recording device—likely a microphone—to minimize the rain's impact on the pickup. The metallic clicks and thuds heard before and after his speech suggest he is securing or repositioning the device, possibly to shield it from direct rainfall or to optimize its angle for better sound capture. **This action reflects a practical attempt to improve audio quality by reducing environmental noise interference.**"
+          }
+        ]
+      },
+      "challenging": {
+        "question": "Based on the audio, what specific action is the speaker taking to improve audio capture, and what auditory evidence supports the conclusion that this action is targeted at the recording device rather than another object?",
+        "choices": [],
+        "answer_idx": null,
+        "variants": [
+          {
+            "key": "short",
+            "label": "r⁺",
+            "sublabel": "Short correct trace",
+            "trigger": null,
+            "text": "The speaker says, 'Hold it down here, maybe it'll pick up better,' indicating an attempt to stabilize a recording device. This is supported by the metallic clicks and thuds occurring immediately before and after the speech—consistent with adjusting a device's mount or latch—alongside the persistent rain masking the audio, suggesting the goal is to reduce wind-induced noise or improve mic positioning. No other object in the scene is indicated by the spatially localized, repeated mechanical sounds."
+          }
+        ]
+      }
+    }
+  ]
+}</script>
+  <script>
+    // -----------------------------------------------------------------
+    // Render logic — keeps all data in #page-data (JSON), so updating
+    // model responses later means editing one JSON block only.
+    // -----------------------------------------------------------------
+    const DATA = JSON.parse(document.getElementById('page-data').textContent);
+    const LETTERS = ['A','B','C','D','E','F'];
+
+    function esc(s) {
+      return String(s ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    // Render a reasoning string: escape, **bold**, [TRIGGER] sentinel, tag colors.
+    // oursMode=true → also auto-detect cognitive trigger phrases and wrap them.
+    const AUTO_TRIGGERS = [
+      'Let me listen more carefully',
+      'Let me listen carefully',
+      'Let me listen again',
+      'Let me check again',
+      'Alternatively',
+      'Wait',
+      'Hmm',
+    ];
+    function renderReasoning(text, triggerPhrase, oursMode) {
+      let s = esc(text);
+      // Trigger handling (do this BEFORE bold so ** around a trigger won't double-wrap it)
+      if (triggerPhrase) {
+        s = s.replace(/\[TRIGGER\]/g, '<span class="trigger">' + esc(triggerPhrase) + '</span>');
+      } else if (oursMode) {
+        for (const t of AUTO_TRIGGERS) {
+          const escaped = t.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+          const re = new RegExp('\\b' + escaped + '(\\.)?', 'g');
+          s = s.replace(re, '<span class="trigger">' + t + '$1</span>');
+        }
+      }
+      // Bold markers
+      s = s.replace(/\*\*([\s\S]+?)\*\*/g, '<b>$1</b>');
+      // Tag styling
+      s = s.replace(/&lt;think&gt;/g, '<span class="think-tag">&lt;think&gt;</span>');
+      s = s.replace(/&lt;\/think&gt;/g, '<span class="think-tag">&lt;/think&gt;</span>');
+      s = s.replace(/&lt;answer&gt;\s*([\s\S]*?)\s*&lt;\/answer&gt;/g,
+        '<span class="answer-tag">&lt;answer&gt;</span> <span class="answer-text">$1</span> <span class="answer-tag">&lt;/answer&gt;</span>');
+      return s;
+    }
+
+    function predictionIsCorrect(pred, ans) {
+      if (pred == null || ans == null) return false;
+      return String(pred).trim().toLowerCase() === String(ans).trim().toLowerCase();
+    }
+
+    // A question block (used for both original + challenging within a dataset example)
+    function renderQuestionBlock(qData, scopeId, accent, openEnded) {
+      const hasChoices = Array.isArray(qData.choices) && qData.choices.length > 0;
+      const correctIdx = qData.answer_idx;
+      const choicesHtml = hasChoices ? qData.choices.map((c, i) => `
+        <li class="${i === correctIdx ? 'correct' : ''}">
+          <span><b>(${LETTERS[i]})</b> ${esc(c)}</span>
+          ${i === correctIdx ? '<span class="check">✓</span>' : ''}
+        </li>
+      `).join('') : '';
+
+      const variants = qData.variants || [];
+      const tabsHtml = variants.map((v, i) => `
+        <button class="tab-btn${i===0?' active':''}" data-tab="${scopeId}-${i}">
+          ${esc(v.label)}<span class="sub">${esc(v.sublabel || '')}</span>
+        </button>
+      `).join('');
+      const panelsHtml = variants.map((v, i) => `
+        <div class="tab-panel${i===0?' active':''}" id="${scopeId}-${i}">
+          <div class="reasoning">${renderReasoning(v.text, v.trigger)}</div>
+        </div>
+      `).join('');
+
+      const oeTag = openEnded ? '<span class="open-ended-tag">open-ended</span>' : '';
+
+      return `
+        <div class="subcard-label ${accent}">${esc(qData.label)}${oeTag}</div>
+        <div class="q-label">Question</div>
+        <p class="question">${esc(qData.question)}</p>
+        ${hasChoices ? `<ul class="choices">${choicesHtml}</ul>` : ''}
+        ${variants.length > 1 ? `<div class="tabs">${tabsHtml}</div>` : ''}
+        <div class="tab-panels">${panelsHtml}</div>
+      `;
+    }
+
+    function renderDatasetExample(ex, idx) {
+      const card = document.createElement('div');
+      card.className = 'example-card';
+
+      const orig = { ...ex.original, label: 'Original Question' };
+      const chal = ex.challenging ? { ...ex.challenging, label: 'Challenging Question (newly generated)' } : null;
+      const oe = !!ex.open_ended;
+
+      let html = `
+        <div class="meta">${esc(ex.id)}</div>
+        <audio controls preload="none" src="${esc(ex.audio)}"></audio>
+        <div class="subcard">${renderQuestionBlock(orig, `ds${idx}-orig`, '', oe)}</div>
+      `;
+      if (chal) {
+        html += `<div class="subcard">${renderQuestionBlock(chal, `ds${idx}-chal`, 'alt', oe)}</div>`;
+      }
+      card.innerHTML = html;
+      return card;
+    }
+
+    function renderQualitativeExample(ex, idx) {
+      const card = document.createElement('div');
+      card.className = 'example-card';
+      const correctIdx = ex.choices.findIndex(c => c === ex.answer);
+      const choicesHtml = ex.choices.map((c, i) => `
+        <li class="${i === correctIdx ? 'correct' : ''}">
+          <span><b>(${LETTERS[i]})</b> ${esc(c)}</span>
+          ${i === correctIdx ? '<span class="check">✓</span>' : ''}
+        </li>
+      `).join('');
+
+      const afCorrect = predictionIsCorrect(ex.af_think.prediction, ex.answer);
+      const lltCorrect = predictionIsCorrect(ex.llt.prediction, ex.answer);
+
+      const chip = c => c
+        ? '<span class="pred-chip correct">✓ correct</span>'
+        : '<span class="pred-chip wrong">✗ wrong</span>';
+      const predLabel = p => p ? esc(p) : '<span style="color:var(--muted)">—</span>';
+
+      card.innerHTML = `
+        <div class="meta">${esc(ex.bench)} / ${esc(ex.id)}</div>
+        <audio controls preload="none" src="${esc(ex.audio)}"></audio>
+        <div class="q-label">Question</div>
+        <p class="question">${esc(ex.question)}</p>
+        <ul class="choices">${choicesHtml}</ul>
+        <div class="comparison">
+          <div class="model-resp ${afCorrect ? 'correct' : 'wrong'}">
+            <div class="model-head">
+              <span class="model-name">Qwen2.5-Omni-7B + AF-Think</span>
+              ${chip(afCorrect)}
+            </div>
+            <div class="q-label">Predicted: ${predLabel(ex.af_think.prediction)}</div>
+            <div class="reasoning collapsible">${renderReasoning(ex.af_think.response)}</div>
+            <button class="show-more-btn">Show more ▾</button>
+          </div>
+          <div class="model-resp ${lltCorrect ? 'correct' : 'wrong'}">
+            <div class="model-head">
+              <span class="model-name">Qwen2.5-Omni-7B + LLT (SFT → DPO)</span>
+              ${chip(lltCorrect)}
+            </div>
+            <div class="q-label">Predicted: ${predLabel(ex.llt.prediction)}</div>
+            <div class="reasoning ours collapsible">${renderReasoning(ex.llt.response, null, true)}</div>
+            <button class="show-more-btn">Show more ▾</button>
+          </div>
+        </div>
+      `;
+      return card;
+    }
+
+    // Mount
+    const dsContainer = document.getElementById('dataset-examples-container');
+    DATA.dataset_examples.forEach((ex, i) => dsContainer.appendChild(renderDatasetExample(ex, i)));
+    const qualContainer = document.getElementById('qualitative-examples-container');
+    DATA.qualitative.forEach((ex, i) => qualContainer.appendChild(renderQualitativeExample(ex, i)));
+
+    // Interaction handlers
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('tab-btn')) {
+        const btn = e.target;
+        const tabs = btn.parentElement;
+        const panels = tabs.parentElement.querySelector('.tab-panels');
+        tabs.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        panels.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        panels.querySelector('#' + btn.dataset.tab).classList.add('active');
+      }
+      if (e.target.classList.contains('show-more-btn')) {
+        const btn = e.target;
+        const block = btn.previousElementSibling;
+        block.classList.toggle('expanded');
+        btn.textContent = block.classList.contains('expanded') ? 'Show less ▴' : 'Show more ▾';
+      }
+    });
+
+    // Hide show-more when content fits
+    document.querySelectorAll('.reasoning.collapsible').forEach(el => {
+      requestAnimationFrame(() => {
+        if (el.scrollHeight <= el.clientHeight + 4) {
+          const btn = el.nextElementSibling;
+          if (btn && btn.classList.contains('show-more-btn')) btn.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
