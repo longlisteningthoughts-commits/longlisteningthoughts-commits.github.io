@@ -348,6 +348,69 @@
         "prediction": "Yes",
         "response": "<think> The speaker in the video used an Indian accent. Therefore, the answer is: (A) Yes. Let me listen more carefully. The speaker's voice has a distinct nasal quality and a noticeable upward inflection on words like \"okay\" and \"here,\" which are characteristic of Indian English accents. The pronunciation of \"hotel\" as \"ho-tel\" with a soft 't' sound and the use of \"front desk\" instead of \"front desk\" further align with common Indian English patterns. Additionally, the rhythmic cadence and intonation patterns match the typical delivery style of Indian English speakers, who often emphasize certain syllables and use specific vowel sounds that differ from standard American or British English. These features are consistent with an Indian accent, confirming the correct choice. </think>\n\n<answer> (A) </answer>"
       }
+    },
+    {
+      "bench": "MMAU",
+      "id": "b9690ab5-518c-4328-8eb4-783a56601ac4",
+      "audio": "audio/MMAU_b9690ab5-518c-4328-8eb4-783a56601ac4.wav",
+      "question": "What is the likely scenario happening based on the change in music?",
+      "choices": [
+        "A band is tuning their instruments",
+        "A band is taking a break",
+        "A band is playing in a concert",
+        "A band is packing up their instruments"
+      ],
+      "answer": "A band is playing in a concert",
+      "af_think": {
+        "prediction": "A band is packing up their instruments",
+        "response": "<think> The audio features a marching band playing a lively tune, which abruptly stops with instruments being put away. This suggests the band is transitioning from playing to preparing to leave or pack up, indicating a break or end of their performance. Therefore, the most plausible scenario is: (D) A band is packing up their instruments </think>\n\n<answer> (D) </answer>"
+      },
+      "llt": {
+        "prediction": "A band is playing in a concert",
+        "response": "<think> The transition from a lively brass band performance to a single instrument playing a slower, sad tune suggests a change in the band's activity. It's unlikely they're tuning or taking a break, as those wouldn't involve a structured musical transition. The shift implies a performance is ending, and the final instrument playing could be a sign of packing up. Therefore, the most plausible scenario is: (D) A band is packing up their instruments. Let me listen more carefully. The audio features a continuous, structured musical performance with no pauses or interruptions, as evidenced by the steady tempo, consistent rhythmic drive, and uninterrupted instrumental interplay. The absence of any silence, tuning sounds, or signs of disassembly (such as instruments being put away or equipment being moved) rules out options A, B, and D. The music maintains a cohesive, energetic flow throughout, with clear transitions between sections and a polished, professional delivery typical of a live concert setting. The abrupt ending aligns with a performance being cut off mid-phrase, which is common in recorded live performances or broadcasts, but the scenario itself is clearly a concert. </think>\n\n<answer> (C) </answer>"
+      }
+    },
+    {
+      "bench": "MMAU",
+      "id": "a3af9286-2cf5-40fe-87d0-a74da303330e",
+      "audio": "audio/MMAU_a3af9286-2cf5-40fe-87d0-a74da303330e.wav",
+      "question": "From the given utterance, count the number of words that contain at least one stressed phoneme.",
+      "choices": [
+        "twenty",
+        "twenty-three",
+        "eighteen",
+        "thirteen"
+      ],
+      "answer": "twenty-three",
+      "af_think": {
+        "prediction": "thirteen",
+        "response": "<think> The utterance contains 23 words in total. Out of these, 13 words contain at least one stressed phoneme. Therefore, the correct option is (D) thirteen. </think>\n\n<answer> (D) </answer>"
+      },
+      "llt": {
+        "prediction": "twenty-three",
+        "response": "<think> The speaker's utterance contains 23 words in total. Counting the words that have at least one stressed phoneme, the count is 13. Therefore, the answer is: (D) thirteen. Let me listen more carefully. The speaker's utterance consists of 23 words, as confirmed by the transcription: \"If you go for what you really love and what you really want to do, you'll do a better job at it. And money will always come and make you comfortable.\" To determine the number of words containing at least one stressed phoneme, we must identify which syllables are stressed in each word. In English, syllables are typically stressed on the first syllable of a word unless otherwise indicated. For example, \"love\" has a stressed \"lo\" syllable, \"really\" has a stressed \"re\" syllable, and \"money\" has a stressed \"m\" syllable. Each of these words contains at least one stressed phoneme. Since all 23 words in the utterance have at least one stressed syllable (as they are all standard English words with inherent stress patterns), the count is 23. The initial reasoning incorrectly stated the count was 13, but the correct count is 23. </think>\n\n<answer> (B) </answer>"
+      }
+    },
+    {
+      "bench": "MMSU",
+      "id": "disfluency_detection_03073478-ba44-4dbd-958c-e1f067e2786e",
+      "audio": "audio/MMSU_disfluency_detection_03073478-ba44-4dbd-958c-e1f067e2786e.wav",
+      "question": "Which types of disfluencies are present in the audio?",
+      "choices": [
+        "discourse markers",
+        "filled pauses, restarts",
+        "discourse markers, explicit editing terms",
+        "explicit editing terms, restarts"
+      ],
+      "answer": "discourse markers",
+      "af_think": {
+        "prediction": "filled pauses, restarts",
+        "response": "<think> The audio contains phrases like \"Yeah\" and \"Well\" which function as discourse markers, adding conversational padding or signaling transitions. Additionally, the speaker repeats the phrase \"pretty smelly\" which constitutes a restart. Filled pauses and explicit editing terms like \"I mean\" are not present. Therefore, the types of disfluencies present are discourse markers and restarts. </think>\n\n<answer> (B) </answer>"
+      },
+      "llt": {
+        "prediction": "discourse markers",
+        "response": "<think> The audio features the discourse marker 'well' used to introduce a thought, and the explicit editing term 'I mean' used to correct or clarify a previous statement. These are the only types of disfluencies present. Therefore, the correct option is (C). Let me listen more carefully. The audio features the discourse marker 'well' used to introduce a thought, and the explicit editing term 'I mean' used to correct or clarify a previous statement. These are the only types of disfluencies present. Wait, the 'I mean' is not present in the audio. The speaker says \"Yeah\" followed by \"well, rabbits are darling\" and then \"That would be fun if you could get them trained. Otherwise, they're pretty smelly.\" There is no \"I mean\" in the speech. The only discourse markers are \"well\" and \"yeah,\" which are standard conversational fillers. The phrase \"Yeah\" is a discourse marker, and \"well\" is used to introduce a thought. There are no restarts, filled pauses like \"uh\" or \"um,\" or explicit editing terms such as \"I mean.\" The speech is fluent with natural conversational markers, but no editing terms or restarts. The initial assumption about \"I mean\" was incorrect. The correct disfluencies are discourse markers. </think>\n\n<answer> (A) </answer>"
+      }
     }
   ],
   "dataset_examples": [
